@@ -41,6 +41,9 @@
 #include <linux/skbuff.h>
 #include <linux/uaccess.h>
 #include <linux/uio.h>
+#include <linux/bio.h>
+#include <linux/blk-mq.h>
+#include <linux/blkdev.h>
 
 __noreturn void rust_helper_BUG(void)
 {
@@ -804,6 +807,46 @@ void rust_helper_ndelay(unsigned long nsecs) {
 }
 EXPORT_SYMBOL_GPL(rust_helper_ndelay);
 
+
+
+void *rust_helper_blk_mq_rq_to_pdu(struct request *rq)
+{
+	return blk_mq_rq_to_pdu(rq);
+}
+EXPORT_SYMBOL_GPL(rust_helper_blk_mq_rq_to_pdu);
+
+struct request *rust_helper_blk_mq_rq_from_pdu(void* pdu) {
+  return blk_mq_rq_from_pdu(pdu);
+}
+EXPORT_SYMBOL_GPL(rust_helper_blk_mq_rq_from_pdu);
+
+void rust_helper_bio_advance_iter_single(const struct bio *bio,
+                                         struct bvec_iter *iter,
+                                         unsigned int bytes) {
+  bio_advance_iter_single(bio, iter, bytes);
+}
+EXPORT_SYMBOL_GPL(rust_helper_bio_advance_iter_single);
+
+
+
+void *rust_helper_kmap_atomic(struct page *page)
+{
+	return kmap_atomic(page);
+}
+EXPORT_SYMBOL_GPL(rust_helper_kmap_atomic);
+
+void rust_helper_kunmap_atomic(void *address)
+{
+	kunmap_atomic(address);
+}
+EXPORT_SYMBOL_GPL(rust_helper_kunmap_atomic);
+
+
+void rust_helper_init_radix_tree(struct xarray *tree, gfp_t gfp_mask)
+{
+	INIT_RADIX_TREE(tree, gfp_mask);
+}
+EXPORT_SYMBOL_GPL(rust_helper_init_radix_tree);
 /*
  * We use `bindgen`'s `--size_t-is-usize` option to bind the C `size_t` type
  * as the Rust `usize` type, so we can use it in contexts where Rust

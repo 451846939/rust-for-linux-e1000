@@ -65,6 +65,10 @@ impl LockClassKey {
     pub(crate) fn get(&self) -> *mut bindings::lock_class_key {
         self.0.get().cast()
     }
+
+    pub(crate) fn as_ptr(&self) -> *mut bindings::lock_class_key {
+        self.0.get().cast()
+    }
 }
 
 /// Safely initialises an object that has an `init` function that takes a name and a lock class as

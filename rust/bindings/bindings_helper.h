@@ -38,6 +38,18 @@
 #include <linux/sysctl.h>
 #include <linux/uaccess.h>
 #include <linux/uio.h>
+#include <linux/virtio.h>
+#include <linux/virtio_config.h>
+
+#include <linux/rust_test.h>
+// #include <linux/virtio_ring.h>
+// #include <linux/virtio_blk.h>
+// #include <linux/virtio_mmio.h>
+// #include <linux/virtio_pci.h>
+#include <linux/bio.h>
+#include <linux/blk-mq.h>
+#include <linux/blkdev.h>
+#include <linux/wait.h>
 #include <uapi/linux/android/binder.h>
 
 /* `bindgen` gets confused at certain things. */

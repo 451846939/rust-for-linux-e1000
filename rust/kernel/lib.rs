@@ -28,6 +28,9 @@
 #![feature(ptr_metadata)]
 #![feature(receiver_trait)]
 #![feature(unsize)]
+#![feature(ptr_const_cast)]
+#![feature(new_uninit)]
+#![feature(type_alias_impl_trait)]
 
 // Ensure conditional compilation based on the kernel configuration works;
 // otherwise we may silently break things like initcall handling.
@@ -74,6 +77,10 @@ pub mod security;
 pub mod str;
 pub mod task;
 pub mod workqueue;
+pub mod virtio;
+pub mod block;
+pub mod init;
+
 
 pub mod linked_list;
 mod raw_list;
@@ -102,7 +109,7 @@ pub mod io_mem;
 pub mod iov_iter;
 pub mod of;
 pub mod platform;
-mod types;
+pub mod types;
 pub mod user_ptr;
 
 #[cfg(CONFIG_KUNIT)]
